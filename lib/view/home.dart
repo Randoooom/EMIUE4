@@ -64,29 +64,30 @@ class CourseList extends StatelessWidget {
       ListView(shrinkWrap: true, children: const <Widget>[
         CourseItem(
             name: "Algorithmen und Datenstrukturen",
-            lecture: TimeSlot(DateTime.monday, 9, 20),
-            exercise: TimeSlot(DateTime.thursday, 9, 20)),
+            lecture: TimeSlot(DateTime.friday, "09:20"),
+            exercise: TimeSlot(DateTime.thursday, "09:20")),
         CourseItem(
             name: "Einfuehrung in die Mathematik fuer Informatiker",
-            lecture: TimeSlot(DateTime.monday, 15, 30),
-            exercise: TimeSlot(DateTime.wednesday, 10, 50)),
+            lecture: TimeSlot(DateTime.monday, "15:30"),
+            exercise: TimeSlot(DateTime.wednesday, "10:50")),
         CourseItem(
             name: "Einfuehrungspraktikum Robolab",
-            lecture: TimeSlot(DateTime.tuesday, 7, 30),
-            exercise: TimeSlot(DateTime.tuesday, 9, 20)),
+            lecture: TimeSlot(DateTime.tuesday, "07:30"),
+            exercise: TimeSlot(DateTime.tuesday, "09:20")),
         CourseItem(
             name: "Einfuehrung in die Medieninformatik",
-            lecture: TimeSlot(DateTime.wednesday, 12, 50),
-            exercise: TimeSlot(DateTime.monday, 9, 20)),
+            lecture: TimeSlot(DateTime.wednesday, "12:50"),
+            exercise: TimeSlot(DateTime.monday, "09:20")),
       ])
     ]);
   }
 }
 
 class TimeSlot {
-  final int weekday, hour, minute;
+  final int weekday;
+  final String time;
 
-  const TimeSlot(this.weekday, this.hour, this.minute);
+  const TimeSlot(this.weekday, this.time);
 
   /// check whether the timeslot is today or not
   bool isToday() {
@@ -160,7 +161,7 @@ class CourseItemTimeWidget extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           icon,
-          Text("${slot.weekdayString()} ${slot.hour}:${slot.minute}",
+          Text("${slot.weekdayString()} ${slot.time}",
               style: TextStyle(
                   color: slot.isToday() ? Colors.white : Colors.black))
         ]));
