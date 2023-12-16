@@ -11,7 +11,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.only(top: 40, left: 10, right: 10),
         child: Column(children: [
           infoWidget,
           Padding(padding: const EdgeInsets.only(top: 20), child: courseList)
@@ -31,7 +31,7 @@ Widget get infoWidget =>
       ])),
       Flexible(
           child: Container(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.only(top: 10, bottom: 10, left: 25, right: 25),
               color: Colors.black12,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -42,6 +42,7 @@ Widget get infoWidget =>
                       isLive: true,
                       showAllNumbers: true,
                       showDigitalClock: false,
+                      secondHandColor: Colors.black26,
                     ),
                     const SizedBox(height: 10),
                     Text(dateString, style: const TextStyle(fontWeight: FontWeight.bold))
