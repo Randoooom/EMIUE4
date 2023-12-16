@@ -1,5 +1,7 @@
 import 'package:emiue4/style/heading.dart';
 import 'package:flutter/material.dart';
+import 'package:analog_clock/analog_clock.dart';
+import 'package:intl/intl.dart';
 
 const weekdayIdentifier = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
 
@@ -10,26 +12,48 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(20),
-        child: const Column(children: [
-          InfoWidget(),
-          Padding(padding: EdgeInsets.only(top: 20), child: CourseList())
+        child: Column(children: [
+          infoWidget,
+          Padding(padding: const EdgeInsets.only(top: 20), child: courseList)
         ]));
   }
 }
 
-class InfoWidget extends StatelessWidget {
-  const InfoWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(children: [
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+Widget get infoWidget =>
+    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, crossAxisAlignment: CrossAxisAlignment.start, children: [
+      const Flexible(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                SizedBox(height: 10),
         Heading("Meine Daten"),
         DataWidget("Matr.-Nr.", "1234567"),
-        DataWidget("S-Nr.", "1234567")
-      ])
+        DataWidget("S-Nr.", "1234567"),
+      ])),
+      Flexible(
+          child: Container(
+              padding: const EdgeInsets.all(10),
+              color: Colors.black12,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const AnalogClock(
+                      width: 110,
+                      height: 110,
+                      isLive: true,
+                      showAllNumbers: true,
+                      showDigitalClock: false,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(dateString, style: const TextStyle(fontWeight: FontWeight.bold))
+                  ])))
     ]);
-  }
+
+String get dateString {
+  final date = DateTime.now();
+  final weekday = weekdayIdentifier[date.weekday - 1];
+  final dateString = DateFormat("dd.MM.yyyy").format(date);
+
+  return "$weekday | $dateString";
 }
 
 class DataWidget extends StatelessWidget {
@@ -51,12 +75,7 @@ class DataWidget extends StatelessWidget {
   }
 }
 
-class CourseList extends StatelessWidget {
-  const CourseList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
+Widget get courseList => Column(children: [
       const Align(
         alignment: Alignment.centerLeft,
         child: Heading("Meine Kurse"),
@@ -64,7 +83,7 @@ class CourseList extends StatelessWidget {
       ListView(shrinkWrap: true, children: const <Widget>[
         CourseItem(
             name: "Algorithmen und Datenstrukturen",
-            lecture: TimeSlot(DateTime.friday, "09:20"),
+            lecture: TimeSlot(DateTime.monday, "09:20"),
             exercise: TimeSlot(DateTime.thursday, "09:20")),
         CourseItem(
             name: "Einfuehrung in die Mathematik fuer Informatiker",
@@ -80,8 +99,6 @@ class CourseList extends StatelessWidget {
             exercise: TimeSlot(DateTime.monday, "09:20")),
       ])
     ]);
-  }
-}
 
 class TimeSlot {
   final int weekday;
@@ -135,8 +152,8 @@ class CourseItem extends StatelessWidget {
           Flexible(
               flex: 2,
               child: Container(
-                padding: const EdgeInsets.all(8),
-                height: 70,
+                  padding: const EdgeInsets.all(8),
+                  height: 70,
                   color: Colors.black12,
                   child: Row(children: [
                     SizedBox(width: 180, child: Text(name)),
