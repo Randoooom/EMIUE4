@@ -87,7 +87,7 @@ Widget get courseList => Column(children: [
             lecture: TimeSlot(DateTime.monday, "09:20"),
             exercise: TimeSlot(DateTime.thursday, "09:20")),
         CourseItem(
-            name: "Einfuehrung in die Mathematik fuer Informatiker",
+            name: "Einfuehrung in die Mathematik",
             lecture: TimeSlot(DateTime.monday, "15:30"),
             exercise: TimeSlot(DateTime.wednesday, "10:50")),
         CourseItem(
